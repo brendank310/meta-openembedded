@@ -1,0 +1,52 @@
+gnome-settings-daemon: Disable plugins, dependencies, and compiler errors
+
+  * Disable 'no-deprecated-declaration' to allow build to complete
+  * Remove colord as a dependency
+  * Remove unused plugins
+
+  Upstream-status: Inappropriate [configuration]
+
+  Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
+
+diff --git a/meson.build b/meson.build
+index d2121623..15fcc88d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -54,7 +54,7 @@ endforeach
+ 
+ # compiler flags
+ common_flags = ['-DHAVE_CONFIG_H']
+-compiler_flags = []
++compiler_flags = ['-Wno-deprecated-declarations']
+ 
+ if gsd_buildtype.contains('debug')
+   common_flags += ['-DG_ENABLE_DEBUG']
+@@ -82,7 +82,6 @@ endif
+ 
+ add_project_arguments(common_flags + compiler_flags, language: 'c')
+ 
+-colord_dep = dependency('colord', version: '>= 1.0.2')
+ geocode_glib_dep = dependency('geocode-glib-1.0', version: '>= 3.10.0')
+ gio_dep = dependency('gio-2.0', version: '>= 2.53.0')
+ gio_unix_dep = dependency('gio-unix-2.0')
+diff --git a/plugins/meson.build b/plugins/meson.build
+index 3db69da7..accb7b90 100644
+--- a/plugins/meson.build
++++ b/plugins/meson.build
+@@ -1,16 +1,11 @@
+ enabled_plugins = [
+   ['a11y-settings', 'A11ySettings'],
+   ['clipboard', 'Clipboard'],
+-  ['color', 'Color'],
+   ['datetime', 'Datetime'],
+   ['dummy', ''],
+-  ['power', 'Power'],
+   ['housekeeping', 'Housekeeping'],
+   ['keyboard', 'Keyboard'],
+-  ['media-keys', 'MediaKeys'],
+   ['mouse', 'Mouse'],
+-  ['screensaver-proxy', 'ScreensaverProxy'],
+-  ['sharing', 'Sharing'],
+   ['sound', 'Sound'],
+   ['xsettings', 'XSettings']
+ ]
