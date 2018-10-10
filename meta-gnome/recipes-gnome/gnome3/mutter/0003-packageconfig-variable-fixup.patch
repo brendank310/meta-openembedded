@@ -1,0 +1,29 @@
+mutter: Fixup pkgconfig variables
+
+  Pkgconfig variables relating to the paths of datadirs, and
+  gir, typelib.
+
+  Upstream-status: Innappropriate [embedded-specific]
+
+  Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
+
+diff --git a/src/libmutter.pc.in b/src/libmutter.pc.in
+index d2e837f4a..0c8db1a66 100644
+--- a/src/libmutter.pc.in
++++ b/src/libmutter.pc.in
+@@ -2,8 +2,10 @@ prefix=@prefix@
+ exec_prefix=@exec_prefix@
+ libdir=@libdir@
+ includedir=@includedir@
+-girdir=@libdir@/mutter
+-typelibdir=@libdir@/mutter
++datarootdir=${prefix}/share
++datadir=${datarootdir}
++girdir=${datadir}/gir-1.0
++typelibdir=${libdir}/mutter
+ apiversion=@LIBMUTTER_API_VERSION@
+ 
+ Name: libmutter
+-- 
+2.17.1
+

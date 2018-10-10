@@ -1,0 +1,27 @@
+mutter: Disable check for zenity
+
+  Disable autoconf check for zenity, no need graphical dialog boxes.
+
+  Upstream-status: Inappropriate [disable-feature]
+
+  Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
+
+diff --git a/configure.ac b/configure.ac
+index ef92f5ecb..5eede9e63 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -427,11 +427,6 @@ fi
+ 
+ AM_CONDITIONAL(HAVE_SM, test "$found_sm" = "yes")
+ 
+-AC_PATH_PROG(ZENITY, zenity, no)
+-if test x"$ZENITY" = xno; then
+-  AC_MSG_ERROR([zenity not found in your path - needed for dialogs])
+-fi
+-
+ AC_ARG_ENABLE(debug,
+ 	[  --enable-debug		enable debugging],,
+ 	enable_debug=no)
+-- 
+2.17.1
+
