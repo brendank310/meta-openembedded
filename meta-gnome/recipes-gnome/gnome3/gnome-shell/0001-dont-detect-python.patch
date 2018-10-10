@@ -1,0 +1,24 @@
+gnome-shell: Add decoration to tweak python3 path
+
+  The python detection used in the meson script doesn't
+  resolve correctly. Add a decoration to allow the
+  do_configure_prepend to sed in the correct path for
+  python3-native.
+
+  Upstream-status: Innappropriate [embedded-specific]
+
+  Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
+
+diff --git a/src/meson.build b/src/meson.build
+index 178e05899..d3d8df97b 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -13,7 +13,7 @@ script_data.set('libdir', libdir)
+ script_data.set('libexecdir', libexecdir)
+ script_data.set('pkgdatadir', pkgdatadir)
+ script_data.set('pkglibdir', pkglibdir)
+-script_data.set('PYTHON', python.path())
++script_data.set('PYTHON', '@PYTHON3_PATH@')
+ script_data.set('VERSION', meson.project_version())
+ 
+ foreach tool : ['gnome-shell-extension-tool', 'gnome-shell-perf-tool']
